@@ -1,0 +1,25 @@
+#Android build output
+build/
+app/build
+
+#Gradle files
+
+.gradle/
+*.iml
+.gradle.kts/
+
+#Local configuration files
+local.properties
+
+#Crashlytics configuration
+fabric.properties
+
+#Android Studio configuration files
+*.idea/
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#Logs
+*.log
