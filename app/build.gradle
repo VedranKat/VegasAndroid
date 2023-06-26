@@ -14,6 +14,10 @@ localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 android {
     compileSdk 33
 
+    dataBinding {
+        enabled true
+    }
+
     defaultConfig {
         applicationId "com.example.vegasapp"
         minSdk 33
@@ -24,11 +28,18 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_KEY", localProperties['APIKEY']
+        buildConfigField "String", "VEGAS_IP", localProperties['VEGAS_IP']
 
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["dagger.enableIncrementalCompilation": "true"]
             }
+        }
+    }
+
+    buildscript {
+        dependencies {
+            classpath 'com.android.tools.build.jetifier:jetifier-processor:1.0.0-beta10'
         }
     }
 

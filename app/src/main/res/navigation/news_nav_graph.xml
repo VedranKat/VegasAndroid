@@ -2,8 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/news_nav_graph"
-    app:startDestination="@id/newsFragment">
+    app:startDestination="@id/loginFragment">
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.vegasapp.ui.fragments.LoginFragment"
+        android:label="LoginFragment" >
+    </fragment>
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.example.vegasapp.ui.fragments.NewsFragment"
