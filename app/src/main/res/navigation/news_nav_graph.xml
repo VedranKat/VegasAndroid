@@ -10,9 +10,18 @@
         android:label="LoginFragment" >
     </fragment>
     <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.vegasapp.ui.fragments.RegisterFragment"
+        android:label="RegisterFragment" >
+    </fragment>
+    <fragment
         android:id="@+id/newsFragment"
         android:name="com.example.vegasapp.ui.fragments.NewsFragment"
         android:label="NewsFragment">
+        <action
+            android:id="@+id/action_newsFragment_to_articleFragment"
+            app:destination="@id/articleFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"/>
     </fragment>
     <fragment
         android:id="@+id/articleFragment"

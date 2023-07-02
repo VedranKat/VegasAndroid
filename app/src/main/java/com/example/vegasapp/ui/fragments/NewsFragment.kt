@@ -28,8 +28,7 @@ class NewsFragment : Fragment(R.layout.fragment_news){
 
     lateinit var binding: FragmentNewsBinding
 
-    val TAG = "BreakingNewsFragment"
-
+    val TAG = "NewsFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,18 +36,15 @@ class NewsFragment : Fragment(R.layout.fragment_news){
         binding = FragmentNewsBinding.bind(view)
         setupRecyclerView()
 
-
-        /*
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("Article", it)
             }
             findNavController().navigate(
-                R.id.action_breakingNewsFragment_to_articleFragment,
+                R.id.action_newsFragment_to_articleFragment,
                 bundle
             )
         }
-        */
 
         viewModel.news.observe(viewLifecycleOwner, Observer { response ->
             when (response){

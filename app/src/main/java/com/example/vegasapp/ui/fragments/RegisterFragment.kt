@@ -8,44 +8,45 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.load.HttpException
 import com.example.vegasapp.R
 import com.example.vegasapp.api.VegasRetrofitInstance
-import com.example.vegasapp.databinding.FragmentLoginBinding
-import com.example.vegasapp.model.authentication.LoginRequest
+import com.example.vegasapp.databinding.FragmentRegisterBinding
+import com.example.vegasapp.model.authentication.RegisterRequest
 import com.example.vegasapp.util.TokenManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LoginFragment : Fragment() {
+class RegisterFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.loginButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-
-            // Perform login
-            login(email, password)
-        }
-
         binding.registerButton.setOnClickListener {
-            navigateToRegisterFragment()
+            val email = binding.registerEmailEditText.text.toString()
+            val password = binding.registerPasswordEditText.text.toString()
+            val confirmPassword = binding.registerConfirmPasswordEditText.text.toString()
+
+            if (password.equals(confirmPassword)) {
+                // Perform register
+                register(email, password, confirmPassword)
+            } else {
+                // Show error
+                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -54,15 +55,15 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 
-    private fun login(email: String, password: String) {
+    private fun register(email: String, password: String, confirmPassword: String) {
 
-        val loginRequest = LoginRequest(email, password)
+        val registerRequest = RegisterRequest(email, password, confirmPassword)
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
                     // Call the login API function
-                    VegasRetrofitInstance.api.login(loginRequest)
+                    VegasRetrofitInstance.api.register(registerRequest)
                 }
 
                 if (response.isSuccessful) {
@@ -72,23 +73,17 @@ class LoginFragment : Fragment() {
                     if (token != null) {
                         TokenManager.saveToken(requireContext(), token)
                         navigateToNewsFragment()
-                        }
+                    }
 
                 } else {
-                    Log.e("LoginFragment", response.errorBody().toString())
+                    Log.e("RegisterFragment", response.errorBody().toString())
                 }
             } catch (e: HttpException) {
-                Log.e("LoginFragment", e.toString())
+                Log.e("RegisterFragment", e.toString())
             } catch (e: Exception) {
-                Log.e("LoginFragment", e.toString())
+                Log.e("RegisterFragment", e.toString())
             }
         }
-    }
-
-    private fun navigateToRegisterFragment() {
-        val navController = findNavController()
-
-        navController.navigate(R.id.registerFragment)
     }
 
     private fun navigateToNewsFragment() {
@@ -96,4 +91,6 @@ class LoginFragment : Fragment() {
 
         navController.navigate(R.id.newsFragment)
     }
+
+
 }
