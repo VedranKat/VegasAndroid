@@ -5,13 +5,16 @@
         android:title="Sports News"
         android:icon="@drawable/ic_launcher_background" />
 
-    <item android:id="@+id/savedNewsFragment"
-        android:title="Test 1"
+    <item android:id="@+id/gamesFragment"
+        android:title="Games"
         android:icon="@drawable/ic_launcher_background" />
 
+    <item android:id="@+id/searchGamesFragment"
+        android:title="Tickets"
+        android:icon="@drawable/ic_launcher_background" />
 
     <item android:id="@+id/searchNewsFragment"
-        android:title="Test 2"
+        android:title="Profile"
         android:icon="@drawable/ic_launcher_background" />
 
 </menu>

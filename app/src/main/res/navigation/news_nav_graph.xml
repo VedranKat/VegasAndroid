@@ -31,4 +31,10 @@
             android:name="Article"
             app:argType="com.example.vegasapp.model.Article"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.example.vegasapp.ui.fragments.GamesFragment"
+        android:label="GamesFragment" >
+    </fragment>
 </navigation>
