@@ -9,7 +9,7 @@
         android:title="Games"
         android:icon="@drawable/ic_launcher_background" />
 
-    <item android:id="@+id/searchGamesFragment"
+    <item android:id="@+id/ticketsFragment"
         android:title="Tickets"
         android:icon="@drawable/ic_launcher_background" />
 

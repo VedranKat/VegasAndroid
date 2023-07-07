@@ -13,6 +13,7 @@ class VegasRetrofitInstance {
             val logging = HttpLoggingInterceptor()
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
+            //add token interceptor later on
             val client = OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .build()
