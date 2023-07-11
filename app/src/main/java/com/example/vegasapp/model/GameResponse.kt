@@ -8,7 +8,7 @@ data class GameResponse(
     val awayTeam: String,
     val homeTeamOdd: Double,
     val awayTeamOdd: Double,
-    val isFinished: Boolean,
+    val finished: Boolean,
     val winner: String?,
     val homeTeamScore: Double?,
     val awayTeamScore: Double?,

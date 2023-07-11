@@ -5,37 +5,40 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vegasapp.R
+import com.example.vegasapp.adapters.TicketGamesAdapter
 import com.example.vegasapp.adapters.TicketsAdapter
-import com.example.vegasapp.databinding.FragmentTicketsBinding
-import com.example.vegasapp.ui.TicketsViewModel
+import com.example.vegasapp.databinding.FragmentTicketgamesBinding
+import com.example.vegasapp.ui.TicketGamesViewModel
 import com.example.vegasapp.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TicketsFragment : Fragment(R.layout.fragment_tickets) {
+class TicketGamesFragment: Fragment(R.layout.fragment_ticketgames) {
 
-    private val viewModel: TicketsViewModel by viewModels()
-    lateinit var ticketsAdapter: TicketsAdapter
+    private val viewModel: TicketGamesViewModel by viewModels()
+    lateinit var ticketGamesAdapter: TicketGamesAdapter
 
-    lateinit var binding: FragmentTicketsBinding
+    lateinit var binding: FragmentTicketgamesBinding
 
-    val TAG = "TicketsFragment"
+    val TAG = "TicketGamesFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentTicketsBinding.bind(view)
+        binding = FragmentTicketgamesBinding.bind(view)
         setupRecyclerView()
 
-        viewModel.tickets.observe(viewLifecycleOwner) { response ->
+        val ticketId = arguments?.getInt("ticketId") ?: 0
+
+        viewModel.setTicketId(ticketId)
+
+        viewModel.ticketGames.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { ticketsResponse ->
-                        ticketsAdapter.setData(ticketsResponse) // Submit the whole list directly
+                        ticketGamesAdapter.setData(ticketsResponse) // Submit the whole list directly
                     }
                 }
 
@@ -53,15 +56,10 @@ class TicketsFragment : Fragment(R.layout.fragment_tickets) {
     }
 
     private fun setupRecyclerView() {
-        ticketsAdapter = TicketsAdapter{
-            val action = TicketsFragmentDirections.actionTicketsFragmentToTicketGamesFragment(it)
-            findNavController()
-                .navigate(action)
-        }
-        binding.rvTickets.apply {
-            adapter = ticketsAdapter
+        ticketGamesAdapter = TicketGamesAdapter()
+        binding.rvTicketGames.apply {
+            adapter = ticketGamesAdapter
             layoutManager = LinearLayoutManager(activity)
-
         }
     }
 }

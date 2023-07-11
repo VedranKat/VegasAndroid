@@ -1,6 +1,7 @@
 package com.example.vegasapp.api
 
 import com.example.vegasapp.model.GameResponse
+import com.example.vegasapp.model.TicketGameResponse
 import com.example.vegasapp.model.TicketResponse
 import com.example.vegasapp.model.authentication.LoginRequest
 import com.example.vegasapp.model.authentication.RegisterRequest
@@ -34,4 +35,10 @@ interface VegasAPI {
         @Header("Authorization") token: String,
         @Path("email") email: String
     ): Response<List<TicketResponse>>
+
+    @GET("ticket-game/get-by-ticket-id/{id}")
+    suspend fun getTicketGames(
+        @Header("Authorization") token: String,
+        @Path("id") id: Long
+    ): Response<List<TicketGameResponse>>
 }

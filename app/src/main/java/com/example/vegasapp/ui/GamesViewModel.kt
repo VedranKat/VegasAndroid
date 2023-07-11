@@ -21,7 +21,6 @@ class GamesViewModel @Inject constructor(
 ) : ViewModel() {
 
     val games: MutableLiveData<Resource<List<GameResponse>>> = MutableLiveData()
-    var gameResponse: GameResponse? = null
 
     init {
         val token = TokenManager.getToken(context)
@@ -32,7 +31,6 @@ class GamesViewModel @Inject constructor(
         games.postValue(Resource.Loading())
         val response = gameRepository.getOdds(token)
         games.postValue(handleGamesResponse(response))
-
     }
 
     private fun handleGamesResponse(response: Response<List<GameResponse>>): Resource<List<GameResponse>> {
@@ -44,6 +42,4 @@ class GamesViewModel @Inject constructor(
         }
         return Resource.Error(response.message())
     }
-
-
 }

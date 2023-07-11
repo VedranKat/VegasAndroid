@@ -36,14 +36,31 @@
     </fragment>
 
     <fragment
-        android:id="@+id/ticketsFragment"
-        android:name="com.example.vegasapp.ui.fragments.TicketsFragment"
-        android:label="TicketsFragment" >
-    </fragment>
-
-    <fragment
         android:id="@+id/gamesFragment"
         android:name="com.example.vegasapp.ui.fragments.GamesFragment"
         android:label="GamesFragment" >
     </fragment>
+
+    <fragment
+        android:id="@+id/ticketsFragment"
+        android:name="com.example.vegasapp.ui.fragments.TicketsFragment"
+        android:label="TicketsFragment" >
+        <action
+            android:id="@+id/action_ticketsFragment_to_ticketGamesFragment"
+            app:destination="@id/ticketGamesFragment"/>
+            <argument
+                android:name="ticketId"
+                android:defaultValue="0"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/ticketGamesFragment"
+        android:name="com.example.vegasapp.ui.fragments.TicketGamesFragment"
+        android:label="TicketGamesFragment" >
+        <argument
+            android:name="ticketId"
+            app:argType="integer"/>
+    </fragment>
+
+
 </navigation>

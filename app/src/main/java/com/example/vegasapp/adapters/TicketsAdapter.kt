@@ -8,7 +8,8 @@ import com.example.vegasapp.model.TicketResponse
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class TicketsAdapter : RecyclerView.Adapter<TicketsAdapter.TicketsViewHolder>() {
+class TicketsAdapter(private val onItemClickListener: (Int) -> Unit)
+    : RecyclerView.Adapter<TicketsAdapter.TicketsViewHolder>() {
 
     private var ticketsList = emptyList<TicketResponse>()
 
@@ -28,6 +29,9 @@ class TicketsAdapter : RecyclerView.Adapter<TicketsAdapter.TicketsViewHolder>() 
     override fun onBindViewHolder(holder: TicketsAdapter.TicketsViewHolder, position: Int) {
         val currentItem = ticketsList[position]
         holder.bind(currentItem)
+        holder.itemView.setOnClickListener() {
+            onItemClickListener(currentItem.id.toInt())
+        }
     }
 
     override fun getItemCount(): Int {
