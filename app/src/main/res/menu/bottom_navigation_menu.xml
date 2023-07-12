@@ -3,18 +3,18 @@
 
     <item android:id="@+id/newsFragment"
         android:title="Sports News"
-        android:icon="@drawable/ic_launcher_background" />
+        android:icon="@drawable/ic_news" />
 
     <item android:id="@+id/gamesFragment"
         android:title="Games"
-        android:icon="@drawable/ic_launcher_background" />
+        android:icon="@drawable/ic_games_odds" />
 
     <item android:id="@+id/ticketsFragment"
         android:title="Tickets"
-        android:icon="@drawable/ic_launcher_background" />
+        android:icon="@drawable/ic_played_tickets" />
 
-    <item android:id="@+id/searchNewsFragment"
+    <item android:id="@+id/profileFragment"
         android:title="Profile"
-        android:icon="@drawable/ic_launcher_background" />
+        android:icon="@drawable/ic_profile" />
 
 </menu>

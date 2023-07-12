@@ -62,5 +62,16 @@
             app:argType="integer"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.vegasapp.ui.fragments.ProfileFragment"
+        android:label="ProfileFragment" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/activeTicketGamesFragment"
+        android:name="com.example.vegasapp.ui.fragments.ActiveTicketGamesFragment"
+        android:label="ActiveTicketGamesFragment" >
+    </fragment>
 
 </navigation>

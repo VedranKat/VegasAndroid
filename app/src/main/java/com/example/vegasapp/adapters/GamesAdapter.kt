@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vegasapp.databinding.ItemGameBinding
+import com.example.vegasapp.model.Article
 import com.example.vegasapp.model.GameResponse
 
 class GamesAdapter : RecyclerView.Adapter<GamesAdapter.GamesViewHolder>() {
@@ -23,6 +24,11 @@ class GamesAdapter : RecyclerView.Adapter<GamesAdapter.GamesViewHolder>() {
     override fun onBindViewHolder(holder: GamesViewHolder, position: Int) {
         val currentItem = gamesList[position]
         holder.bind(currentItem)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let {
+                it(currentItem)
+            }
+        }
     }
 
     override fun getItemCount() = gamesList.size
@@ -36,5 +42,11 @@ class GamesAdapter : RecyclerView.Adapter<GamesAdapter.GamesViewHolder>() {
                 tvAwayTeamOdd.text = gameResponse.awayTeamOdd.toString()
             }
         }
+    }
+
+    private var onItemClickListener: ((GameResponse) -> Unit)?= null
+
+    fun setOnItemClickListener(listener: (GameResponse)-> Unit){
+        onItemClickListener = listener
     }
 }

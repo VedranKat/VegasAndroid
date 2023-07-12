@@ -23,3 +23,6 @@ fabric.properties
 
 #Logs
 *.log
+
+#Pic
+app/src/main/res/drawable/dices.jpg
