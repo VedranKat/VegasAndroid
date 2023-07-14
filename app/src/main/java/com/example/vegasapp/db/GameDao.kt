@@ -20,8 +20,8 @@ interface GameDao {
     @Delete
     suspend fun deleteGame(game: Game)
 
-    @Delete
-    suspend fun deleteAllGames(games: List<Game>)
+    @Query("DELETE FROM game")
+    suspend fun deleteAllGames()
 
     @Query("SELECT COUNT(*) FROM game WHERE gameApiId = :gameApiId")
     suspend fun getGameCountByApiId(gameApiId: String): Int

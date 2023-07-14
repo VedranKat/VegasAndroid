@@ -10,7 +10,7 @@ class GameRepositoryDB(val gameDb: GameDatabase) {
 
     suspend fun deleteGame(game: Game) = gameDb.getGameDao().deleteGame(game)
 
-    suspend fun deleteAllGames(games: List<Game>) = gameDb.getGameDao().deleteAllGames(games)
+    suspend fun deleteAllGames() = gameDb.getGameDao().deleteAllGames()
 
     suspend fun isGameExistsByApiId(gameApiId: String): Boolean {
         val count = gameDb.getGameDao().getGameCountByApiId(gameApiId)

@@ -14,7 +14,9 @@ import com.bumptech.glide.load.HttpException
 import com.example.vegasapp.R
 import com.example.vegasapp.api.VegasRetrofitInstance
 import com.example.vegasapp.databinding.FragmentLoginBinding
+import com.example.vegasapp.db.GameDatabase
 import com.example.vegasapp.model.authentication.LoginRequest
+import com.example.vegasapp.repository.GameRepositoryDB
 import com.example.vegasapp.util.TokenManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,6 +41,8 @@ class LoginFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
+
+            cleanUpOldGames()
 
             // Perform login
             login(email, password)
@@ -79,6 +83,23 @@ class LoginFragment : Fragment() {
                 }
             } catch (e: HttpException) {
                 Log.e("LoginFragment", e.toString())
+            } catch (e: Exception) {
+                Log.e("LoginFragment", e.toString())
+            }
+        }
+    }
+
+    private fun cleanUpOldGames() {
+
+        //No DI
+        val gameDb = GameDatabase.invoke(requireContext())
+        val gameRepositoryDB = GameRepositoryDB(gameDb)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    gameRepositoryDB.deleteAllGames()
+                }
             } catch (e: Exception) {
                 Log.e("LoginFragment", e.toString())
             }

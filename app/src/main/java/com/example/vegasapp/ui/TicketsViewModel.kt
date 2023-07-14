@@ -22,25 +22,33 @@ class TicketsViewModel @Inject constructor(
 
     val tickets : MutableLiveData<Resource<List<TicketResponse>>> = MutableLiveData()
 
-    init{
+    init {
+        initializeTickets()
+    }
+
+    private fun initializeTickets() {
         val token = TokenManager.getToken(context)
         val email = TokenManager.getSub(context)
         getTickets(token!!, email!!)
     }
 
-    private fun getTickets(token: String, email: String) = viewModelScope.launch{
+    private fun getTickets(token: String, email: String) = viewModelScope.launch {
         tickets.postValue(Resource.Loading())
         val response = ticketRepository.getTicketsByEmail(token, email)
         tickets.postValue(handleTicketsResponse(response))
     }
 
     private fun handleTicketsResponse(response: Response<List<TicketResponse>>): Resource<List<TicketResponse>>? {
-        if(response.isSuccessful){
+        if (response.isSuccessful) {
             val ticketResponse = response.body()
             ticketResponse?.let { resultResponse ->
                 return Resource.Success(resultResponse)
             }
         }
         return Resource.Error(response.message())
+    }
+
+    fun refreshTickets() = viewModelScope.launch {
+        initializeTickets()
     }
 }

@@ -1,6 +1,7 @@
 package com.example.vegasapp.api
 
 import com.example.vegasapp.model.GameResponse
+import com.example.vegasapp.model.PlayTicketRequest
 import com.example.vegasapp.model.TicketGameResponse
 import com.example.vegasapp.model.TicketResponse
 import com.example.vegasapp.model.UpdateBalanceRequest
@@ -46,7 +47,7 @@ interface VegasAPI {
     @POST("ticket/create")
     suspend fun createTicket(
         @Header("Authorization") token: String,
-        @Body ticketResponse: TicketResponse //TODO: Change to TicketRequest
+        @Body ticketResponse: PlayTicketRequest
     ): Response<TicketResponse>
 
     //Games in ticket

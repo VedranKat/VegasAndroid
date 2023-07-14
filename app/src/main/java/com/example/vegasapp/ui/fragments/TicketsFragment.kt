@@ -52,6 +52,11 @@ class TicketsFragment : Fragment(R.layout.fragment_tickets) {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshTickets()
+    }
+
     private fun setupRecyclerView() {
         ticketsAdapter = TicketsAdapter{
             val action = TicketsFragmentDirections.actionTicketsFragmentToTicketGamesFragment(it)
