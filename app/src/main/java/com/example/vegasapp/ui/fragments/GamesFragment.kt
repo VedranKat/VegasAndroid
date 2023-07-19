@@ -5,7 +5,9 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,9 @@ class GamesFragment : Fragment(R.layout.fragment_games){
     private val viewModel: GamesViewModel by viewModels()
     lateinit var gamesAdapter: GamesAdapter
 
+    private var allGamesList = emptyList<GameResponse>()
+    private var currentFilter = "All"
+
     lateinit var binding: FragmentGamesBinding
 
     val TAG = "GamesFragment"
@@ -31,13 +36,15 @@ class GamesFragment : Fragment(R.layout.fragment_games){
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentGamesBinding.bind(view)
+        setUpFilterButtons()
         setupRecyclerView()
 
         viewModel.games.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     response.data?.let { gamesResponse ->
-                        gamesAdapter.setData(gamesResponse) // Submit the whole list directly
+                        allGamesList = gamesResponse
+                        filterList(currentFilter)
                     }
                 }
 
@@ -64,6 +71,54 @@ class GamesFragment : Fragment(R.layout.fragment_games){
             adapter = gamesAdapter
             layoutManager = LinearLayoutManager(activity)
         }
+    }
+
+    private fun setUpFilterButtons() {
+        // Darken the "All" button by default
+        darkenButton(binding.btnAll)
+
+        binding.btnAll.setOnClickListener {
+            currentFilter = "All"
+            filterList(currentFilter)
+            darkenButton(binding.btnAll)
+            lightenButton(binding.btnMLB)
+            lightenButton(binding.btnCFL)
+        }
+
+        binding.btnMLB.setOnClickListener {
+            currentFilter = "MLB"
+            filterList(currentFilter)
+            darkenButton(binding.btnMLB)
+            lightenButton(binding.btnAll)
+            lightenButton(binding.btnCFL)
+        }
+
+        binding.btnCFL.setOnClickListener {
+            currentFilter = "CFL"
+            filterList(currentFilter)
+            darkenButton(binding.btnCFL)
+            lightenButton(binding.btnAll)
+            lightenButton(binding.btnMLB)
+        }
+    }
+
+    private fun darkenButton(button: Button) {
+        button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+    }
+
+    private fun lightenButton(button: Button) {
+        button.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_gray))
+    }
+
+    private fun filterList(filter: String) {
+        val filteredList = when (filter) {
+            "MLB" -> allGamesList.filter { game -> game.sportKey == "baseball_mlb" }
+            "CFL" -> allGamesList.filter { game -> game.sportKey == "americanfootball_cfl" }
+            else -> allGamesList
+        }
+        gamesAdapter.setData(filteredList)
     }
 
     private fun showAlertDialog(game: GameResponse) {

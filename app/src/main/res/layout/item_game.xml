@@ -17,11 +17,11 @@
 
     <TextView
         android:id="@+id/tvAwayTeam"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:ellipsize="end"
-        android:maxLines="3"
+        android:maxLines="1"
         android:text="Away Team"
         android:textColor="@android:color/black"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,12 +29,12 @@
 
     <TextView
         android:id="@+id/tvAwayTeamOdd"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ellipsize="end"
-        android:maxLines="5"
+        android:maxLines="1"
         android:text="Away Team Odd"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"

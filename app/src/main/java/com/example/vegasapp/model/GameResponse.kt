@@ -12,5 +12,6 @@ data class GameResponse(
     val winner: String?,
     val homeTeamScore: Double?,
     val awayTeamScore: Double?,
-    val commenceTime: Date
+    val commenceTime: Date,
+    val sportKey: String
 )
