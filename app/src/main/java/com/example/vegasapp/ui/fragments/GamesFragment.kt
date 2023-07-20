@@ -104,12 +104,12 @@ class GamesFragment : Fragment(R.layout.fragment_games){
 
     private fun darkenButton(button: Button) {
         button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
+        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_700))
     }
 
     private fun lightenButton(button: Button) {
-        button.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_gray))
-        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_gray))
+        button.setTextColor(ContextCompat.getColor(requireContext(), R.color.purple_700))
+        button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.purple_200))
     }
 
     private fun filterList(filter: String) {
